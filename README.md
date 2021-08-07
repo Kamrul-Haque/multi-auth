@@ -2,33 +2,33 @@
 Role based Authentication System using [Laravel Breeze & Inertia with vue scaffolding](https://laravel.com/docs/8.x/starter-kits#breeze-and-inertia) A middleware 'Permit' has been created for protecting routes of users with different roles.
 
 ### Installation
-- clone the repository:\
+- clone the repository:
 ```
 git clone https://github.com/Kamrul-Haque/Multi-Auth.git
 ```
-- install PHP dependencies via composer:\
+- install PHP dependencies via composer:
 ```
 composer install
 ```
-- install js dependencies via npm:\
+- install js dependencies via npm:
 ```
 npm install
 ```
-- compile js & css assets:\
+- compile js & css assets:
 ```
 npm run dev
 ```
-- copy .env.example file & create a new .env file using terminal:\
+- copy .env.example file & create a new .env file using terminal:
 ```
 copy .env.example .env
 ```
-- generate an application key:\
+- generate an application key:
 ```
 php artisan key:generate
 ```
 - set project configurations in .env file
 - create a MySQL database
-- create tables in database with default data:\
+- create tables in database with default data:
 ```
 php artisan migrate --seed
 ```
