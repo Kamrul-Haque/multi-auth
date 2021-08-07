@@ -1,6 +1,5 @@
 ## Laravel 8 Multi-Authentication System
-Role based Authentication System using [Laravel Breeze & Inertia with vue scaffolding](https://laravel.com/docs/8.x/starter-kits#breeze-and-inertia) A middleware 'Permit' has been created for protecting routes of users with different roles.
-
+Role based Authentication System using [Laravel Breeze & Inertia with vue scaffolding](https://laravel.com/docs/8.x/starter-kits#breeze-and-inertia).
 ### Installation
 - clone the repository:
 ```
