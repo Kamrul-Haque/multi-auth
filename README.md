@@ -31,7 +31,7 @@ php artisan key:generate
 ```
 php artisan migrate --seed
 ```
-- use xampp or wampp or php artisan serve command to use run the application in localhost
+- use ***xampp*** or ***wampp*** or `php artisan serve` command to use run the application in localhost
 
 ### Default Data
 Roles:
