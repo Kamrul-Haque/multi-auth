@@ -61,4 +61,4 @@ Password: 123456789
 - Custom Route Middleware ``app/Http/Middleware/Permit.php`` to protect routes for specific roles
 - Dedicated *Dashboard* for each role. See ``routes/web.php``
 - Redirection upon *Login* managed in ``app/Http/Controllers/Auth/AuthenticatedSessionController.php``
-- Auto role allocation in ``app/Http/Controllers/Auth/RegisteredUserController.php``. Any new registered *user* will get the role user.
+- Auto role allocation in ``app/Http/Controllers/Auth/RegisteredUserController.php``. Any new registered user will get the role *user*.
