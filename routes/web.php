@@ -26,14 +26,14 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware('permit:user')->name('dashboard');
 
 require __DIR__.'/auth.php';
 
 Route::get('/super-admin', function () {
-    echo "You are a Super Admin!";
+    return Inertia::render('SuperAdminDashboard');
 })->middleware('permit:super-admin');
 
 Route::get('/admin', function () {
-    echo "You are an Admin!";
+    return Inertia::render('AdminDashboard');
 })->middleware('permit:admin');
