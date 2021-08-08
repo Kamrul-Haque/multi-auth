@@ -43,17 +43,17 @@ Roles:
 
 Users:
 ```
-User
-Email: user@email.com
-Password: 123456789
+1. User
+   Email: user@email.com
+   Password: 123456789
 
-Admin
-Email: admin@email.com
-Password: 123456789
+2. Admin
+   Email: admin@email.com
+   Password: 123456789
 
-Super Admin
-Email: super-admin@email.com
-Password: 123456789
+3. Super Admin
+   Email: super-admin@email.com
+   Password: 123456789
 ```
 
 ### Specifications
