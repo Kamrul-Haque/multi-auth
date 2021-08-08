@@ -57,7 +57,7 @@ Users:
 ```
 
 ### Specifications
-- Role based Multi Authentication System
+- Role based Multi Authentication System.
 - Custom Route Middleware ``app/Http/Middleware/Permit.php`` to protect routes for specific roles.
 - Dedicated *Dashboard* for each role. See ``routes/web.php``.
 - Redirection upon *Login* managed in ``app/Http/Controllers/Auth/AuthenticatedSessionController.php``.
