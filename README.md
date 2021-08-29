@@ -3,7 +3,7 @@ Role based Authentication System using [Laravel Breeze & Inertia with vue scaffo
 ### Installation
 - clone the repository:
 ```
-git clone https://github.com/Kamrul-Haque/Multi-Auth.git
+git clone https://github.com/Kamrul-Haque/multi-auth.git
 ```
 - install PHP dependencies via [composer](https://getcomposer.org/):
 ```
