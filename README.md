@@ -17,7 +17,7 @@ npm install
 ```
 npm run dev
 ```
-- copy .env.example file & create a new .env file using terminal:
+- cp .env.example file & create a new .env file using terminal:
 ```
 copy .env.example .env
 ```
