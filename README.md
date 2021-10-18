@@ -17,9 +17,9 @@ npm install
 ```
 npm run dev
 ```
-- cp .env.example file & create a new .env file using terminal:
+- copy .env.example file & create a new .env file using terminal:
 ```
-copy .env.example .env
+cp .env.example .env
 ```
 - generate an application key:
 ```
