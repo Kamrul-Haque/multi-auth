@@ -15,15 +15,18 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $role = new Role();
-        $role->title = "super-admin";
-        $role->save();
+        $role->name = "super-admin";
+        if ($role->save())
+            $role->allowTo('access');
 
         $role = new Role();
-        $role->title = "admin";
-        $role->save();
+        $role->name = "admin";
+        if ($role->save())
+            $role->allowTo('modify');
 
         $role = new Role();
-        $role->title = "user";
-        $role->save();
+        $role->name = "user";
+        if ($role->save())
+            $role->allowTo('force-delete');
     }
 }

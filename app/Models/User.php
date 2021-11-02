@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -43,13 +45,28 @@ class User extends Authenticatable
 
     public function hasRole($role): bool
     {
-        $role = Role::where('title', $role)->first();
+        if (is_string($role))
+            $role = Role::where('name', $role)->first();
 
         return $this->roles->contains($role);
     }
 
-    public function roles()
+    public function assignRole($role)
+    {
+        if (is_string($role)) {
+            $role = Role::whereName($role)->first();
+        }
+
+        $this->roles()->sync($role, false);
+    }
+
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function permissions()
+    {
+        return $this->roles->map->permissions->flatten()->pluck('name')->unique();
     }
 }

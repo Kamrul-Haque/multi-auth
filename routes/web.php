@@ -24,16 +24,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware('permit:user')->name('dashboard');
-
 require __DIR__.'/auth.php';
 
-Route::get('/super-admin', function () {
-    return Inertia::render('SuperAdminDashboard');
-})->middleware('permit:super-admin');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware('permit:user,admin,super-admin')->name('dashboard');
 
 Route::get('/admin', function () {
     return Inertia::render('AdminDashboard');
-})->middleware('permit:admin');
+})->middleware('permit:admin,super-admin')->name('admin.dashboard');
+
+Route::get('/super-admin', function () {
+    return Inertia::render('SuperAdminDashboard');
+})->middleware('permit:super-admin')->name('super-admin.dashboard');

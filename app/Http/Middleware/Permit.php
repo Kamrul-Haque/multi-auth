@@ -14,10 +14,12 @@ class Permit
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if(auth()->check() && auth()->user()->hasRole($role))
-            return $next($request);
+        foreach ($roles as $role) {
+            if (auth()->user()->hasRole($role))
+                return $next($request);
+        }
 
         return back();
     }
