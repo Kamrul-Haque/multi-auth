@@ -20,13 +20,13 @@ class Role extends Model
         $this->permissions()->sync($permission, false);
     }
 
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class)->withTimestamps();
-    }
-
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class)->withTimestamps();
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

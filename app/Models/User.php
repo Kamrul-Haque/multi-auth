@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -53,9 +52,8 @@ class User extends Authenticatable
 
     public function assignRole($role)
     {
-        if (is_string($role)) {
+        if (is_string($role))
             $role = Role::whereName($role)->first();
-        }
 
         $this->roles()->sync($role, false);
     }

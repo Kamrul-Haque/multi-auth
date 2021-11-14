@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use \App\Http\Controllers as Controllers;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +22,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 require __DIR__ . '/auth.php';
 
@@ -37,3 +37,12 @@ Route::get('/admin', function () {
 Route::get('/super-admin', function () {
     return Inertia::render('SuperAdminDashboard');
 })->middleware('auth', 'permit:super-admin')->name('super-admin.dashboard');
+
+Route::group(['middleware'=>['auth','permit:admin']],function(){
+    Route::resource('/users',Controllers\UserController::class);
+});
+
+Route::group(['middleware'=>['auth','permit:super-admin']],function(){
+    Route::resource('/roles',Controllers\RoleController::class);
+    Route::resource('/permissions',Controllers\PermissionController::class);
+});
