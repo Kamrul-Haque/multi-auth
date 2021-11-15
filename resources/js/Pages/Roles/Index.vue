@@ -6,9 +6,12 @@
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     Roles
                 </h2>
-                <input id="search" v-model="search" autofocus
+                <input id="search"
+                       v-model="search"
+                       autofocus
                        class="h-7 text-sm border border-gray-200 focus:border-gray-400 focus:ring-0 rounded"
-                       placeholder="search..." type="text"/>
+                       placeholder="search..."
+                       type="text"/>
             </div>
         </template>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12 flex flex-col">
@@ -33,26 +36,36 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            <tr v-for="role in roles.data" v-if="roles.data.length" :key="role.id">
+                            <tr v-for="role in roles.data"
+                                v-if="roles.data.length"
+                                :key="role.id">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ role.name }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span v-for="permission in role.permissions" :key="permission.id">
-                                        {{ permission.name }},
+                                    <span v-for="(permission, index) in role.permissions"
+                                          :key="permission.id">{{ permission.name
+                                                               }}<span v-if="index !== role.permissions.length - 1">,
+                                                                </span>
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <Link :href="this.route('roles.assign.permissions.form', role)"
+                                          class="text-green-500 hover:underline mr-2">Assign
+                                    </Link>
                                     <Link :href="this.route('roles.edit', role)"
                                           class="text-blue-400 hover:underline mr-2">Edit
                                     </Link>
-                                    <Link :href="this.route('roles.destroy', role)" as="button"
-                                          class="text-red-700 hover:underline ml-2" method="delete">Delete
+                                    <Link :href="this.route('roles.destroy', role)"
+                                          as="button"
+                                          class="text-red-700 hover:underline ml-2"
+                                          method="delete">Delete
                                     </Link>
                                 </td>
                             </tr>
                             <tr v-else>
-                                <td class="px-6 py-4 whitespace-nowrap text-center" colspan="3">
+                                <td class="px-6 py-4 whitespace-nowrap text-center"
+                                    colspan="3">
                                     No Data Found.
                                 </td>
                             </tr>

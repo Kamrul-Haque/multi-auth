@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers as Controllers;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use \App\Http\Controllers as Controllers;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,11 +39,15 @@ Route::get('/super-admin', function () {
     return Inertia::render('SuperAdminDashboard');
 })->middleware('auth', 'permit:super-admin')->name('super-admin.dashboard');
 
-Route::group(['middleware'=>['auth','permit:admin']],function(){
-    Route::resource('/users',Controllers\UserController::class);
+Route::group(['middleware' => ['auth', 'permit:admin']], function () {
+    Route::resource('/users', Controllers\UserController::class);
 });
 
-Route::group(['middleware'=>['auth','permit:super-admin']],function(){
-    Route::resource('/roles',Controllers\RoleController::class);
-    Route::resource('/permissions',Controllers\PermissionController::class);
+Route::group(['middleware' => ['auth', 'permit:super-admin']], function () {
+    Route::resource('/roles', Controllers\RoleController::class);
+    Route::get('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissionsForm'])
+        ->name('roles.assign.permissions.form');
+    Route::post('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissions'])
+        ->name('roles.assign.permissions');
+    Route::resource('/permissions', Controllers\PermissionController::class);
 });
