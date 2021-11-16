@@ -50,4 +50,9 @@ Route::group(['middleware' => ['auth', 'permit:super-admin']], function () {
     Route::post('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissions'])
         ->name('roles.assign.permissions');
     Route::resource('/permissions', Controllers\PermissionController::class)->except('show');
+    Route::get('/users', [Controllers\UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRolesForm'])
+        ->name('users.assign.roles.form');
+    Route::post('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRoles'])
+        ->name('users.assign.roles');
 });
