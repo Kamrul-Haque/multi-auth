@@ -173,7 +173,8 @@
                 </div>
             </header>
 
-            
+            <FlashMessage></FlashMessage>
+
             <!-- Page Content -->
             <main>
                 <slot/>
@@ -189,6 +190,7 @@ import BreezeDropdownLink from "@/Components/DropdownLink.vue";
 import BreezeNavLink from "@/Components/NavLink.vue";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import {Link} from "@inertiajs/inertia-vue3";
+import FlashMessage from "@/Components/FlashMessage";
 
 export default {
     components: {
@@ -198,6 +200,7 @@ export default {
         BreezeNavLink,
         BreezeResponsiveNavLink,
         Link,
+        FlashMessage
     },
 
     data() {

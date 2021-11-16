@@ -38,7 +38,7 @@ class RoleController extends Controller
 
         Role::create($valid);
 
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('success', 'Role Created');
     }
 
     public function edit(Role $role)
@@ -55,10 +55,10 @@ class RoleController extends Controller
         if (!auth()->user()->hasRole($role)) {
             $role->update($valid);
 
-            return redirect()->route('roles.index');
+            return redirect()->route('roles.index')->with('success', 'Role Updated');
         }
         else
-            return back();
+            return back()->with('error', "Can't edit your Role");
     }
 
     public function destroy(Role $role)
@@ -66,7 +66,7 @@ class RoleController extends Controller
         if (!auth()->user()->hasRole($role)) {
             $role->delete();
 
-            return redirect()->route('roles.index');
+            return redirect()->route('roles.index')->with('success', 'Role Deleted');
         }
         else
             return back()->with('error', "Can't delete your Role");
@@ -93,6 +93,6 @@ class RoleController extends Controller
             $role->permissions()->sync($permissions[$key], false);
         }
 
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('success', 'Permissions Assigned');
     }
 }
