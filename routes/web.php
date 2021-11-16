@@ -44,10 +44,10 @@ Route::group(['middleware' => ['auth', 'permit:admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'permit:super-admin']], function () {
-    Route::resource('/roles', Controllers\RoleController::class);
+    Route::resource('/roles', Controllers\RoleController::class)->except('show');
     Route::get('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissionsForm'])
         ->name('roles.assign.permissions.form');
     Route::post('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissions'])
         ->name('roles.assign.permissions');
-    Route::resource('/permissions', Controllers\PermissionController::class);
+    Route::resource('/permissions', Controllers\PermissionController::class)->except('show');
 });

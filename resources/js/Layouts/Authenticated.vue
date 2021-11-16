@@ -43,6 +43,13 @@
                                 >
                                     Roles
                                 </BreezeNavLink>
+                                <BreezeNavLink
+                                        v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                                        :active="route().current('permissions.index')"
+                                        :href="route('permissions.index')"
+                                >
+                                    Permissions
+                                </BreezeNavLink>
                             </div>
                         </div>
 
@@ -141,6 +148,13 @@
                         >
                             Roles
                         </BreezeResponsiveNavLink>
+                        <BreezeNavLink
+                                v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                                :active="route().current('permissions.index')"
+                                :href="route('permissions.index')"
+                        >
+                            Permissions
+                        </BreezeNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
