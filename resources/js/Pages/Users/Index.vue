@@ -27,6 +27,10 @@
                                 </th>
                                 <th class="px-6 py-3 text-left font-bold font-medium text-gray-500 uppercase"
                                     scope="col">
+                                    Email
+                                </th>
+                                <th class="px-6 py-3 text-left font-bold font-medium text-gray-500 uppercase"
+                                    scope="col">
                                     Roles
                                 </th>
                                 <th class="px-6 py-3 text-right font-bold font-medium text-gray-500 uppercase"
@@ -41,6 +45,9 @@
                                 :key="user.id">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ user.name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ user.email }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span v-for="(role, index) in user.roles"

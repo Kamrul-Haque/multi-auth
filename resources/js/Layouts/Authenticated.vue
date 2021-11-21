@@ -16,14 +16,14 @@
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <BreezeNavLink
-                                        v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                                        v-if="hasRole('super-admin')"
                                         :active="route().current('super-admin.dashboard')"
                                         :href="route('super-admin.dashboard')"
                                 >
                                     Super-Admin Dashboard
                                 </BreezeNavLink>
                                 <BreezeNavLink
-                                        v-else-if="$page.props.auth.user.roles[0].name === 'admin'"
+                                        v-else-if="hasRole('admin')"
                                         :active="route().current('admin.dashboard')"
                                         :href="route('admin.dashboard')"
                                 >
@@ -37,25 +37,25 @@
                                     Dashboard
                                 </BreezeNavLink>
                                 <BreezeNavLink
-                                        v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
-                                        :active="route().current('users.index')"
-                                        :href="route('users.index')"
-                                >
-                                    Users
-                                </BreezeNavLink>
-                                <BreezeNavLink
-                                        v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                                        v-if="hasRole('super-admin') || hasRole('admin')"
                                         :active="route().current('roles.index')"
                                         :href="route('roles.index')"
                                 >
                                     Roles
                                 </BreezeNavLink>
                                 <BreezeNavLink
-                                        v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                                        v-if="hasRole('super-admin') || hasRole('admin')"
                                         :active="route().current('permissions.index')"
                                         :href="route('permissions.index')"
                                 >
                                     Permissions
+                                </BreezeNavLink>
+                                <BreezeNavLink
+                                        v-if="hasRole('super-admin') || hasRole('admin')"
+                                        :active="route().current('users.index')"
+                                        :href="route('users.index')"
+                                >
+                                    Users
                                 </BreezeNavLink>
                             </div>
                         </div>
@@ -142,47 +142,48 @@
                         class="sm:hidden"
                 >
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeNavLink
-                                v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                        <BreezeResponsiveNavLink
+                                v-if="hasRole('super-admin')"
                                 :active="route().current('super-admin.dashboard')"
                                 :href="route('super-admin.dashboard')"
                         >
                             Super-Admin Dashboard
-                        </BreezeNavLink>
-                        <BreezeNavLink
-                                v-else-if="$page.props.auth.user.roles[0].name === 'admin'"
+                        </BreezeResponsiveNavLink>
+                        <BreezeResponsiveNavLink
+                                v-else-if="hasRole('admin')"
                                 :active="route().current('admin.dashboard')"
                                 :href="route('admin.dashboard')"
                         >
                             Admin Dashboard
-                        </BreezeNavLink>
+                        </BreezeResponsiveNavLink>
                         <BreezeResponsiveNavLink
+                                v-else
                                 :active="route().current('dashboard')"
                                 :href="route('dashboard')"
                         >
                             Dashboard
                         </BreezeResponsiveNavLink>
                         <BreezeResponsiveNavLink
-                                v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
-                                :active="route().current('users.index')"
-                                :href="route('users.index')"
-                        >
-                            Users
-                        </BreezeResponsiveNavLink>
-                        <BreezeResponsiveNavLink
-                                v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                                v-if="hasRole('super-admin') || hasRole('admin')"
                                 :active="route().current('roles.index')"
                                 :href="route('roles.index')"
                         >
                             Roles
                         </BreezeResponsiveNavLink>
-                        <BreezeNavLink
-                                v-if="$page.props.auth.user.roles[0].name === 'super-admin'"
+                        <BreezeResponsiveNavLink
+                                v-if="hasRole('super-admin') || hasRole('admin')"
                                 :active="route().current('permissions.index')"
                                 :href="route('permissions.index')"
                         >
                             Permissions
-                        </BreezeNavLink>
+                        </BreezeResponsiveNavLink>
+                        <BreezeResponsiveNavLink
+                                v-if="hasRole('super-admin') || hasRole('admin')"
+                                :active="route().current('users.index')"
+                                :href="route('users.index')"
+                        >
+                            Users
+                        </BreezeResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -244,11 +245,15 @@ export default {
         Link,
         FlashMessage
     },
-
     data() {
         return {
             showingNavigationDropdown: false,
         };
     },
+    methods: {
+        hasRole(role) {
+            return this.$page.props.auth.user.roles.some(assigned => assigned.name === role);
+        }
+    }
 };
 </script>

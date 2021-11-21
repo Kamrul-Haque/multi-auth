@@ -39,20 +39,12 @@ Route::get('/super-admin', function () {
     return Inertia::render('SuperAdminDashboard');
 })->middleware('auth', 'permit:super-admin')->name('super-admin.dashboard');
 
-Route::group(['middleware' => ['auth', 'permit:admin']], function () {
-    Route::resource('/users', Controllers\UserController::class);
-});
-
-Route::group(['middleware' => ['auth', 'permit:super-admin']], function () {
-    Route::resource('/roles', Controllers\RoleController::class)->except('show');
-    Route::get('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissionsForm'])
-        ->name('roles.assign.permissions.form');
-    Route::post('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissions'])
-        ->name('roles.assign.permissions');
-    Route::resource('/permissions', Controllers\PermissionController::class)->except('show');
-    Route::get('/users', [Controllers\UserController::class, 'index'])->name('users.index');
-    Route::get('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRolesForm'])
-        ->name('users.assign.roles.form');
-    Route::post('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRoles'])
-        ->name('users.assign.roles');
+Route::group(['middleware' => ['auth', 'permit:admin,super-admin']], function () {
+    Route::resource('/roles', Controllers\RoleController::class)->except('show')->middleware('can:modify');
+    Route::get('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissionsForm'])->name('roles.assign.permissions.form')->middleware('can:assign');
+    Route::post('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissions'])->name('roles.assign.permissions')->middleware('can:assign');
+    Route::resource('/permissions', Controllers\PermissionController::class)->except('show')->middleware('can:modify');
+    Route::resource('/users', Controllers\UserController::class)->middleware('can:modify');
+    Route::get('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRolesForm'])->name('users.assign.roles.form')->middleware('can:assign');
+    Route::post('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRoles'])->name('users.assign.roles')->middleware('can:assign');
 });
