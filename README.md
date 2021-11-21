@@ -56,12 +56,30 @@ Users:
    Password: 123456789
 ```
 
+### Usage
+- Protect *Routes* against specific *Role(s)* like:
+```
+Route::get('/admin', function () {
+    return Inertia::render('AdminDashboard');
+})->middleware('auth', 'permit:admin,super-admin')->name('admin.dashboard');
+```
+- Protect *Routes* against specific *Permission* like:
+```
+Route::get('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRolesForm'])
+    ->name('users.assign.roles.form')
+    ->middleware('can:assign');
+Route::post('/users/{user}/assign-roles', [Controllers\UserController::class, 'assignRoles'])
+    ->name('users.assign.roles')
+    ->middleware('can:assign');
+```
+
 ### Specifications
 - Role based Multi Authentication System.
 - Custom Route Middleware ``app/Http/Middleware/Permit.php`` to protect routes for specific roles.
 - Dedicated *Dashboard* for each role. See ``routes/web.php``.
 - Redirection upon *Login* managed in ``app/Http/Controllers/Auth/AuthenticatedSessionController.php``.
 - Auto role allocation in ``app/Http/Controllers/Auth/RegisteredUserController.php``. Any new registered user will get the role *user*.
-- Roles CRUD & Permissions Assignment to Roles can be found in ``app/Http/Controllers/RoleController``. Only *super-admin* can access the functionalities from frontend.
-- Permissions CRUD can be found in ``app/Http/Controllers/PermissionController``.  Only *super-admin* can access the functionalities from frontend.
-- Roles Assingment to Users can be found in ``app/Http/Controllers/UserController``.  Only *super-admin* can access the functionalities from frontend.
+- Roles CRUD & Permissions Assignment to Roles can be found in ``app/Http/Controllers/RoleController``. Only *admin* & *super-admin* with specific *permissions* can access specific functionalities from frontend.
+- Permissions CRUD can be found in ``app/Http/Controllers/PermissionController``.  Only *admin* & *super-admin* with specific *permissions* can access specific functionalities from frontend.
+- Roles Assingment to Users can be found in ``app/Http/Controllers/UserController``. Only *admin* & *super-admin* with specific *permissions* can access specific functionalities from frontend.
+- Default Authorization can be found in ``App/Providers/AuthServiceProvider``. You can also add your custom *Gates* or *Policies*.
