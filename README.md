@@ -62,3 +62,6 @@ Users:
 - Dedicated *Dashboard* for each role. See ``routes/web.php``.
 - Redirection upon *Login* managed in ``app/Http/Controllers/Auth/AuthenticatedSessionController.php``.
 - Auto role allocation in ``app/Http/Controllers/Auth/RegisteredUserController.php``. Any new registered user will get the role *user*.
+- Roles CRUD & Permissions Assignment to Roles can be found in ``app/Http/Controllers/RoleController``. Only *super-admin* can access the functionalities from frontend.
+- Permissions CRUD can be found in ``app/Http/Controllers/PermissionController``.  Only *super-admin* can access the functionalities from frontend.
+- Roles Assingment to Users can be found in ``app/Http/Controllers/UserController``.  Only *super-admin* can access the functionalities from frontend.
